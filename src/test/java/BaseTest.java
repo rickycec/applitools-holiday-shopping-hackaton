@@ -7,6 +7,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.Properties;
 
+/**
+ * Manage activities related to all tests
+ */
 public class BaseTest {
 
     static WebDriver driver;
@@ -16,14 +19,13 @@ public class BaseTest {
     public static void setUp() {
         Properties props = System.getProperties();
         try {
-            props.load(new FileInputStream(new File("src/test/resources/test.properties")));
+            props.load(new FileInputStream(new File(TestConsts.propPath)));
         } catch (Exception e){
             e.printStackTrace();
             System.exit(-1);
         }
 
         driver = new EdgeDriver();
-        eyesManager = new EyesManager();
     }
 
     @AfterAll
