@@ -7,8 +7,8 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.seleniumhq.selenium:selenium-java:4.0.0-alpha-7'
+    implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
-    testImplementation 'com.applitools:eyes-selenium-java4:4.14.0'
+    testImplementation 'com.applitools:eyes-selenium-java3:3.186.0'
 }
