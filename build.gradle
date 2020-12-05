@@ -10,5 +10,5 @@ dependencies {
     implementation 'org.seleniumhq.selenium:selenium-java:4.0.0-alpha-7'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
-    testImplementation 'com.applitools:eyes-sdk-java4-parent:4.14.0'
+    testImplementation 'com.applitools:eyes-selenium-java4:4.14.0'
 }
