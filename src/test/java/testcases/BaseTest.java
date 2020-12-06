@@ -1,7 +1,11 @@
+package testcases;
+
+import eyes.EyesManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import utils.TestConsts;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,8 +34,8 @@ public class BaseTest {
 
     @AfterAll
     public static void tearDown() {
-        driver.quit();
         eyesManager.abort();
+        driver.quit();
     }
 
 }

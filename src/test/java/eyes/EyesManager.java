@@ -1,7 +1,11 @@
+package eyes;
+
+import com.applitools.eyes.TestResultsStatus;
 import com.applitools.eyes.selenium.Configuration;
 import com.applitools.eyes.selenium.Eyes;
 import com.applitools.eyes.visualgrid.services.RunnerOptions;
 import com.applitools.eyes.visualgrid.services.VisualGridRunner;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -12,18 +16,19 @@ public class EyesManager {
     private Eyes eyes;
     private WebDriver driver;
     private Configuration configuration;
+    private VisualGridRunner runner;
 
     public EyesManager(WebDriver driver, Configuration configuration) {
         this.driver = driver;
         this.configuration = configuration;
         this.configuration.setApiKey(System.getProperty("applitools.api.key"));
-        var runner = new VisualGridRunner(new RunnerOptions().testConcurrency(10));
+        runner = new VisualGridRunner(new RunnerOptions().testConcurrency(10));
         eyes = new Eyes(runner);
         eyes.setConfiguration(configuration);
     }
 
     public WebDriver open(String testName) {
-        return eyes.open(driver, eyes.getAppName(), testName);
+        return eyes.open(this.driver, eyes.getAppName(), testName);
     }
 
     public void abort() {
@@ -32,6 +37,11 @@ public class EyesManager {
 
     public void validateWindow(String stepName) {
         eyes.checkWindow(stepName);
-        eyes.close();
+        eyes.closeAsync();
+    }
+
+    public void validateRegion(By locator, String stepName) {
+        eyes.checkRegion(locator, stepName);
+        eyes.closeAsync();
     }
 }
