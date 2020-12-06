@@ -7,20 +7,27 @@ import com.applitools.eyes.selenium.Configuration;
 import com.applitools.eyes.visualgrid.model.DesktopBrowserInfo;
 import eyes.EyesManager;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import pom.MainPage;
 import static utils.TestConsts.urlV1;
 
+/**
+ * Tests for the Part 1 of the Applitools Holiday Shopping Hackathon
+ */
 public class Part1Tests extends BaseTest {
 
+    //Setting up default viewport as 1200x800
+    static final int viewportWidth = 1200;
+    static final int viewportHeight = 1200;
     WebDriver d;
 
     @BeforeAll
     public static void part1TestsSetUp() {
         var suiteConfig = new Configuration();
         suiteConfig
-                .addBrowser(new DesktopBrowserInfo(1200, 800, BrowserType.CHROME))
-                .setViewportSize(new RectangleSize(1200, 800))
+                .addBrowser(new DesktopBrowserInfo(viewportWidth, viewportHeight, BrowserType.CHROME))
+                .setViewportSize(new RectangleSize(viewportWidth, viewportHeight))
                 .setAppName("AppliFashion")
                 .setBatch(new BatchInfo("Holiday Shopping"));
         eyesManager = new EyesManager(driver, suiteConfig);
@@ -35,7 +42,6 @@ public class Part1Tests extends BaseTest {
     @Test
     public void mainPageVerification() {
         d.get(urlV1);
-
         eyesManager.validateWindow("main page");
     }
 
@@ -43,7 +49,6 @@ public class Part1Tests extends BaseTest {
     @Test
     public void filterVerification() {
         d.get(urlV1);
-
         var mainPage = new MainPage(d);
         mainPage.filterByBlack();
         eyesManager.validateRegion(mainPage.getShoesGridLocator(), "filter by color");
@@ -53,12 +58,20 @@ public class Part1Tests extends BaseTest {
     @Test
     public void detailPageVerification() {
         d.get(urlV1);
-
         var mainPage = new MainPage(d);
-        var ProductDetailPage = mainPage.selectProductByName("Appli Air x Night");
+
+        //If no element with the given name is present the test should fail
+        try {
+            mainPage.selectProductByName("Appli Air x Night");
+        } catch (NoSuchElementException e) {
+            Assertions.fail(e.getMessage());
+        }
         eyesManager.validateWindow("product details");
     }
 
+    /**
+     * Abort eyes instance if the test ended but eyes hasn't been closed
+     */
     @AfterEach
     public void abortEyes() {
         eyesManager.abort();

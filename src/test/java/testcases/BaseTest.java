@@ -12,7 +12,7 @@ import java.io.FileInputStream;
 import java.util.Properties;
 
 /**
- * Manage activities related to all tests
+ * Base test class to manage activities related to all tests
  */
 public class BaseTest {
 
@@ -21,6 +21,8 @@ public class BaseTest {
 
     @BeforeAll
     public static void setUp() {
+
+        //Loading properties from test.properties file and then loading them into System properties
         Properties props = System.getProperties();
         try {
             props.load(new FileInputStream(new File(TestConsts.propPath)));
