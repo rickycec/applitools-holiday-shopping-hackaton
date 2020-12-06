@@ -10,12 +10,13 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import pom.MainPage;
-import static utils.TestConsts.urlV1;
+
+import static utils.TestConsts.urlDev;
 
 /**
  * Tests for the Part 1 of the Applitools Holiday Shopping Hackathon
  */
-public class Part1Tests extends BaseTest {
+public class Part2Tests extends BaseTest {
 
     //Setting up default viewport as 1200x800
     static final int viewportWidth = 1200;
@@ -41,14 +42,14 @@ public class Part1Tests extends BaseTest {
     @DisplayName("Test 1")
     @Test
     public void mainPageVerification() {
-        d.get(urlV1);
+        d.get(urlDev);
         eyesManager.validateWindow("main page");
     }
 
     @DisplayName("Test 2")
     @Test
     public void filterVerification() {
-        d.get(urlV1);
+        d.get(urlDev);
         var mainPage = new MainPage(d);
         mainPage.filterByBlack();
         eyesManager.validateRegion(mainPage.getShoesGridLocator(), "filter by color");
@@ -57,7 +58,7 @@ public class Part1Tests extends BaseTest {
     @DisplayName("Test 3")
     @Test
     public void detailPageVerification() {
-        d.get(urlV1);
+        d.get(urlDev);
         var mainPage = new MainPage(d);
 
         //If no element with the given name is present the test should fail
