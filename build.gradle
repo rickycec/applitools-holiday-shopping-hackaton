@@ -12,3 +12,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
     testImplementation 'com.applitools:eyes-selenium-java3:3.186.0'
 }
+
+test {
+    useJUnitPlatform()
+}
